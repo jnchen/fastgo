@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: pass
+    url: jdbc:h2:file:~/.h2/innerdb
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: h2
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles: dev
+  jpa:
+    show-sql: true
+
+---
+
+spring:
+  profiles: prod
