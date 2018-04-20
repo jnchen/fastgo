@@ -4,10 +4,12 @@ import cn.wellt.system.dao.UserRepository;
 import cn.wellt.system.domain.User;
 import cn.wellt.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 用户Service层实现类
  */
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;

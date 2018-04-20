@@ -11,7 +11,7 @@ import java.util.List;
  * 用户信息实体类
  */
 @Entity
-@Table(name = "sys_role")
+@Table(name = "sys_user")
 @Data
 @ToString(exclude = "roleList")
 public class User implements Serializable {

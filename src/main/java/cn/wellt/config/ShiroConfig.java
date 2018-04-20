@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -24,6 +25,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/doLogin","anon");
         filterChainDefinitionMap.put("/login","anon");
         filterChainDefinitionMap.put("/static/**","anon");
+        filterChainDefinitionMap.put("/h2/**","anon");
         filterChainDefinitionMap.put("/logout","logout");
         filterChainDefinitionMap.put("/**","authc");
 //        filterChainDefinitionMap.put("/**","anon");
