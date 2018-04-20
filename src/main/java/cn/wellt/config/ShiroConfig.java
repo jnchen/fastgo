@@ -22,11 +22,9 @@ public class ShiroConfig {
 
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
 
-        filterChainDefinitionMap.put("/doLogin","anon");
         filterChainDefinitionMap.put("/login","anon");
-        filterChainDefinitionMap.put("/static/**","anon");
-        filterChainDefinitionMap.put("/h2/**","anon");
         filterChainDefinitionMap.put("/logout","logout");
+        filterChainDefinitionMap.put("/static/**","anon");
         filterChainDefinitionMap.put("/**","authc");
 //        filterChainDefinitionMap.put("/**","anon");
         shiroFilterFactoryBean.setLoginUrl("/login");

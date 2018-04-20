@@ -1,12 +1,15 @@
 package cn.wellt.controller;
 
+import cn.wellt.common.domain.rest.FailureResult;
+import cn.wellt.common.domain.rest.Result;
+import cn.wellt.common.domain.rest.SuccessResult;
 import cn.wellt.system.domain.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,42 +19,33 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
     /**
-     * 登录界面
-     * @return
-     */
-    @RequestMapping(value = "login")
-    public String login(){
-        return "login";
-    }
-
-    /**
      * 登录操作
      * @return
      */
-    @RequestMapping(value = "doLogin")
-    public String doLogin(String username,String password,HttpSession session){
+    @PostMapping(value = "login")
+    public Result doLogin(String username,String password,HttpSession session){
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
         Subject subject = SecurityUtils.getSubject();
         try{
             subject.login(token);
-            User userInfo =(User) subject.getPrincipal();
-            session.setAttribute("username",userInfo.getUsername());
-            return "index";
+            User user =(User) subject.getPrincipal();
+            session.setAttribute("username",user.getUsername());
+            return new SuccessResult("登录成功");
         }catch (UnknownAccountException ex1){
             System.out.println("账号不存在");
-            return "403";
+            return new FailureResult("账号不存在");
         } catch (IncorrectCredentialsException e) {
             System.out.println("密码错误");
-            return "403";
+            return new FailureResult("密码错误");
         } catch (LockedAccountException e) {
             System.out.println("登录失败，该用户已被冻结");
-            return "403";
+            return new FailureResult("登录失败，该用户已被冻结");
         } catch (AuthenticationException e) {
             System.out.println("该用户不存在");
-            return "403";
+            return new FailureResult("该用户不存在");
         } catch (Exception e) {
             e.printStackTrace();
-            return "403";
+            return new FailureResult("未知错误");
         }
     }
 
@@ -59,22 +53,11 @@ public class LoginController {
      * 退出登录
      * @return
      */
-    @RequestMapping(value = "logout")
-    @ResponseBody
-    public String logout(HttpSession session){
+    @GetMapping(value = "logout")
+    public Result logout(HttpSession session){
         Subject subject = SecurityUtils.getSubject();
         session.removeAttribute("username");
         subject.logout();
-        return "login";
+        return new SuccessResult("退出成功");
     }
-
-    /**
-     * 主页
-     * @return
-     */
-    @RequestMapping(value = "index")
-    public String index(){
-        return "main";
-    }
-
 }
