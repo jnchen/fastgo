@@ -1,9 +1,9 @@
 # fastgo
 A fast develop framework
 ## the component include
+* Vue.js
 * Shiro 
 * Flowable
-* Freemarker
 * Druid
 * Mysql
 * Redis
