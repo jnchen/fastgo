@@ -4,7 +4,9 @@ A fast develop framework
 * Shiro 
 * Flowable
 * Freemarker
+* Druid
 * Mysql
 * Redis
 * Quartz
+* swagger2
 * and so on ...
